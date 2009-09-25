@@ -1,0 +1,21 @@
+game Vocabulary vocab.py
+question What is my name?
+answer correct Adam
+answer incorrect John
+answer incorrect Juan
+answer incorrect Jean
+question What is my other name?
+answer incorrect Sam
+answer correct Benjamin
+answer incorrect Sammy
+answer incorrect Samuel
+game Geography geography.py
+question Where's America?
+answer incorrect Europe
+answer correct Somewhere
+answer correct Over here
+answer incorrect Asia
+question Who did it?
+answer incorrect Me
+answer incorrect You
+answer correct That guy
