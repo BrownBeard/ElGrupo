@@ -1,0 +1,502 @@
+game Geography geography.py
+question What is the capital of Mississippi?
+answer incorrect Hattiesburg
+answer correct Jackson
+answer incorrect Tupelo
+answer incorrect Hot Coffee
+question What is the capital of California?
+answer correct Sacramento
+answer incorrect Las Angeles
+answer incorrect Ukiah
+answer incorrect San Diego
+question What is the capital of Texas?
+answer correct Austin
+answer incorrect Dallas
+answer incorrect Houston
+answer incorrect San Antonio
+question What is the capital of Alabama?
+answer correct Montgomery
+answer incorrect Birmingham
+answer incorrect Tuscaloosa
+answer incorrect Mobile
+question What is the capital of Florida?
+answer correct Tallahassee
+answer incorrect Miami
+answer incorrect Orlando
+answer incorrect Destin
+question What is the capital of Georgia?
+answer correct Atlanta
+answer incorrect Augusta
+answer incorrect Marietta
+answer incorrect Cusseta
+question What is the capital of Tennessee?
+answer correct Nashville
+answer incorrect Memphis
+answer incorrect Cookville
+answer incorrect Gatlinburg
+question What is the capital of South Carolina?
+answer correct Columbia
+answer incorrect Charleston
+answer incorrect Buffalo
+answer incorrect Great Falls
+question What is the capital of North Carolina?
+answer correct Raleigh
+answer incorrect Asheville
+answer incorrect Arcadia
+answer incorrect Macedonia
+question What is the capital of Louisiana?
+answer correct Baton Rouge
+answer incorrect New Orleans
+answer incorrect Slidell
+answer incorrect Alexandria
+question What is the capital of Arkansas?
+answer correct Little Rock
+answer incorrect Buffalo City
+answer incorrect Compton
+answer incorrect Mount George
+question What is the capital of Oklahoma?
+answer correct Oklahoma City
+answer incorrect Arapaho
+answer incorrect Bartlesville
+answer incorrect Comanche
+question What is the capital of Kentucky?
+answer correct Frankfort
+answer incorrect Louisville
+answer incorrect Bowling Green
+answer incorrect LaGrange
+question What is the capital of West Virginia?
+answer correct Charleston
+answer incorrect Parsons
+answer incorrect Shepherdstown
+answer incorrect War
+question What is the capital of Virginia?
+answer correct Richmond
+answer incorrect Fairfax
+answer incorrect Lynchburg
+answer incorrect Roanoke
+question What is the capital of New Mexico?
+answer correct Santa Fe
+answer incorrect Black Rock
+answer incorrect Cedar Crest
+answer incorrect Loving
+question What is the capital of Arizona?
+answer correct Phoenix
+answer incorrect Glendale
+answer incorrect Tombstone
+answer incorrect Chandler
+question What is the capital of Colorado?
+answer correct Denver
+answer incorrect Vail
+answer incorrect Breckenridge
+answer incorrect Beaver Creek
+question What is the capital of Utah?
+answer correct Salt Lake City
+answer incorrect Hurricane
+answer incorrect Mexican Hat
+answer incorrect Saratoga Springs
+question What is the capital of Nevada?
+answer correct Carson City
+answer incorrect Reno
+answer incorrect Las Vegas
+answer incorrect Henderson
+question What is the capital of Oregon?
+answer correct Salem
+answer incorrect Portland
+answer incorrect Baker City
+answer incorrect Reedsport
+question What is the capital of Washington?
+answer correct Olympia
+answer incorrect Bellevue
+answer incorrect Federal Way
+answer incorrect Kent
+question What is the capital of Montana?
+answer correct Helena
+answer incorrect Anaconda
+answer incorrect Whitefish
+answer incorrect Great Falls
+question What is the capital of Idaho?
+answer correct Boise
+answer incorrect Atomic City
+answer incorrect Fruitland
+answer incorrect Sugar City
+question What is the capital of North Dakota?
+answer correct Bismarck
+answer incorrect Fargo
+answer incorrect Williston
+answer incorrect Dickinson
+question What is the capital of South Dakota?
+answer correct Pierre
+answer incorrect Sioux Falls
+answer incorrect Hot Springs
+answer incorrect Watertown
+question What is the capital of Minnesota?
+answer correct St. Paul
+answer incorrect Minneapolis
+answer incorrect Plymouth
+answer incorrect Apple Valley
+question What is the capital of Wisconsin?
+answer correct Madison
+answer incorrect Appleton
+answer incorrect Oshkosh
+answer incorrect Milwaukee
+question What is the capital of Illinois?
+answer correct Springfield
+answer incorrect Chicago
+answer incorrect Dallas City
+answer incorrect Oakland
+question What is the capital of Indiana?
+answer correct Indianapolis
+answer incorrect Noblesville
+answer incorrect Beech Grove
+answer incorrect Fort Wayne
+question What is the capital of Michigan?
+answer correct Lansing
+answer incorrect Adrian
+answer incorrect Allen Park
+answer incorrect Ann Arbor
+question What is the capital of Ohio?
+answer correct Columbus
+answer incorrect Cleveland
+answer incorrect Cincinnati
+answer incorrect Hamilton
+question What is the capital of Pennsylvania?
+answer correct Harrisburg
+answer incorrect Pittsburgh
+answer incorrect Oil City
+answer incorrect Uniontown
+question What is the capital of New York?
+answer correct Albany
+answer incorrect Buffalo
+answer incorrect New York City
+answer incorrect Rochester
+question What is the capital of Vermont?
+answer correct Montpellier
+answer incorrect Rutland
+answer incorrect Newport
+answer incorrect Winooski
+question What is the capital of New Jersey?
+answer correct Trenton
+answer incorrect Atlantic City
+answer incorrect Newark
+answer incorrect Jersey City
+question What is the capital of Delaware?
+answer correct Dover
+answer incorrect Seaford
+answer incorrect Wilmington
+answer incorrect New Castle
+question What is the capital of Maryland?
+answer correct Annapolis
+answer incorrect Cumberland
+answer incorrect Gaithersburg
+answer incorrect Ellicott City
+question What is the capital of Hawaii?
+answer correct Honolulu
+answer incorrect Kapaa
+answer incorrect Kona
+answer incorrect Lihue
+question What is the capital of Alaska?
+answer correct Juneau
+answer incorrect Adak
+answer incorrect Barrow
+answer incorrect Eagle
+question What is the capital of Maine?
+answer correct Augusta
+answer incorrect Hallowell
+answer incorrect Brewer
+answer incorrect Bath
+question What is the capital of New Hampshire?
+answer correct Concord
+answer incorrect Berlin
+answer incorrect Portsmouth
+answer incorrect Manchester
+question What is the capital of Massachusetts?
+answer correct Boston
+answer incorrect Bedford
+answer incorrect Cambridge
+answer incorrect Georgetown
+question What is the capital of Kansas?
+answer correct Topeka
+answer incorrect Abbyville
+answer incorrect Hanover
+answer incorrect Princeton
+question What is the capital of Iowa?
+answer correct Des Moines
+answer incorrect Beaver
+answer incorrect Cancun
+answer incorrect Charlotte
+question What is the capital of Nebraska?
+answer correct Lincoln
+answer incorrect Battle Creek
+answer incorrect Fremont
+answer incorrect Geneva
+question What is the capital of Wyoming?
+answer correct Cheyenne
+answer incorrect Casper
+answer incorrect Gillette
+answer incorrect Green River
+question What is the capital of Missouri?
+answer correct Jefferson City
+answer incorrect Beverly Hills
+answer incorrect Ash Grove
+answer incorrect St. Louis
+question What is the capital of Rhode Island?
+answer correct Providence
+answer incorrect Coventry
+answer incorrect West Greenwich
+answer incorrect Central Falls
+question What is the capital of Conneticut?
+answer correct Hartford
+answer incorrect Norwalk
+answer incorrect Stamford
+answer incorrect Winsted
+game Vocabulary vocab.py
+question improvise means:
+answer correct invent
+answer incorrect liberate
+answer incorrect extrude
+answer incorrect fizz
+question borzoi means:
+answer correct Russian wolfhound
+answer incorrect difficulty
+answer incorrect prelude
+answer incorrect attack
+question laconic means:
+answer correct terse
+answer incorrect multi-colored
+answer incorrect outer
+answer incorrect saturated
+question splanchnic means:
+answer correct visceral
+answer incorrect connected
+answer incorrect belittling
+answer incorrect well-spoken
+question scansion means:
+answer correct verse analysis
+answer incorrect truncheon
+answer incorrect nautical cleat
+answer incorrect scandalous mansion
+question sanicle means:
+answer correct flowering plant
+answer incorrect small axle
+answer incorrect grain of sand
+answer incorrect trace of sanity
+question nullah means:
+answer correct gully
+answer incorrect nickname
+answer incorrect sustenance
+answer incorrect bunny
+question noyade means:
+answer correct execution by drowning
+answer incorrect innovation
+answer incorrect annoyance
+answer incorrect barricade
+question lentigo means:
+answer correct freckle
+answer incorrect silver
+answer incorrect wildebeest
+answer incorrect empire
+question ambeer means:
+answer correct tobacco juice
+answer incorrect wager
+answer incorrect extremist
+answer incorrect flatworm
+question ret means:
+answer correct soak until soft
+answer incorrect trudge
+answer incorrect resist
+answer incorrect burst inward
+question sennit means:
+answer correct braided rope
+answer incorrect conviction
+answer incorrect lawyer
+answer incorrect flamboyance
+question acetic means:
+answer correct vinegar-like
+answer incorrect alert
+answer incorrect connection
+answer incorrect devout
+question agave means:
+answer correct spiny-leaved plant
+answer incorrect semiprecious gem
+answer incorrect type of cockatoo
+answer incorrect leaf chewed in Peru
+question emolument means:
+answer correct compensation
+answer incorrect indirect reference
+answer incorrect mama
+answer incorrect wreckage
+question glom means:
+answer correct seize
+answer incorrect embrace
+answer incorrect infuriate
+answer incorrect rip
+question firkin means:
+answer correct cask
+answer incorrect plank
+answer incorrect boulder
+answer incorrect greenness
+question knighthead means:
+answer correct bowsprit support
+answer incorrect cane handle
+answer incorrect meadow flower
+answer incorrect chief knight
+question betoken means:
+answer correct indicate
+answer incorrect prune
+answer incorrect take away
+answer incorrect revive
+question exsiccate means:
+answer correct dry
+answer incorrect impoverish
+answer incorrect protrude
+answer incorrect grow worse
+question incommensurate means:
+answer correct disproportionate
+answer incorrect lustful
+answer incorrect inconsistent
+answer incorrect woeful
+question spoor means:
+answer correct trail
+answer incorrect wearing away
+answer incorrect banter
+answer incorrect joint pain
+question extenuate means:
+answer correct make less serious
+answer incorrect tidy
+answer incorrect analyze
+answer incorrect list
+question campestral means:
+answer correct rural
+answer incorrect diligent
+answer incorrect evident
+answer incorrect firm
+question cuisse means:
+answer correct thigh armor
+answer incorrect young child
+answer incorrect danger
+answer incorrect impassiveness
+question casaba means:
+answer correct winter melon
+answer incorrect designer
+answer incorrect curtain
+answer incorrect level
+question annulate means:
+answer correct ringed
+answer incorrect morose
+answer incorrect greenish
+answer incorrect lone
+question byzantine means:
+answer correct complex
+answer incorrect impolite
+answer incorrect amusing
+answer incorrect villainous
+question hoosegow means:
+answer correct jail
+answer incorrect singer
+answer incorrect hatred of change
+answer incorrect lobster liver
+question succor means:
+answer correct relief
+answer incorrect moral philosophy
+answer incorrect self-contemplation
+answer incorrect overseer
+question piquant means:
+answer correct spicy
+answer incorrect agitated
+answer incorrect tolerable
+answer incorrect blameless
+question glissade means:
+answer correct sliding step
+answer incorrect woman hater
+answer incorrect client
+answer incorrect flowering
+question lade means:
+answer correct burden
+answer incorrect coax
+answer incorrect worship
+answer incorrect deter
+question paroxysm means:
+answer correct convulsion
+answer incorrect aspect
+answer incorrect occupant
+answer incorrect famous person
+question barcarole means:
+answer correct gondolier's song
+answer incorrect cough reliever
+answer incorrect mobster
+answer incorrect slope of loose rock
+question urbane means:
+answer correct suave
+answer incorrect wrathful
+answer incorrect bear-like
+answer incorrect lackluster
+question scarp means:
+answer correct steep slope
+answer incorrect wood nymph
+answer incorrect underling
+answer incorrect memoir
+question sibyl means:
+answer correct prophetess
+answer incorrect streamer
+answer incorrect luggage
+answer incorrect homeless child
+question vermiculate means:
+answer correct wormy
+answer incorrect sprightly
+answer incorrect voracious
+answer incorrect deliberate
+question propitiatory means:
+answer correct appeasing
+answer incorrect on fire
+answer incorrect sure
+answer incorrect cool
+question gambit means:
+answer correct ploy
+answer incorrect judgement
+answer incorrect lattice
+answer incorrect confirming evidence
+question dissension means:
+answer correct strife
+answer incorrect boa
+answer incorrect mischief
+answer incorrect casket
+question censorious means:
+answer correct critical
+answer incorrect intermittent
+answer incorrect endearing
+answer incorrect related
+question subversive means:
+answer correct traitorous
+answer incorrect absorbing
+answer incorrect illegal
+answer incorrect humid
+question muckrake means:
+answer correct expose misconduct
+answer incorrect remain
+answer incorrect superintend
+answer incorrect chide
+question thimblerig means:
+answer correct shell game
+answer incorrect licking
+answer incorrect directions
+answer incorrect agreeableness
+question petulant means:
+answer correct crabby
+answer incorrect wearied
+answer incorrect outer
+answer incorrect marshy
+question bilk means:
+answer correct swindle
+answer incorrect wed
+answer incorrect raid
+answer incorrect pry
+question autocrat means:
+answer correct despot
+answer incorrect twine
+answer incorrect fortified embankment
+answer incorrect hopelessness
+question wistful means:
+answer correct pensive
+answer incorrect modest
+answer incorrect unique
+answer incorrect informed
