@@ -2,6 +2,8 @@
 
 import sys
 import MySQLdb
+import re
+import random
 
 # DB {{{
 # Holds database related stuff
@@ -78,6 +80,7 @@ class Session:
   # __init__ {{{
   def __init__(self, conf_fn=None):
     self.db = DB()
+    self.title_prefix = {'label': 'El Grupo', 'separator': ': '}
 
     # Load config file if provided
     if not conf_fn is None:
@@ -206,6 +209,44 @@ class Session:
     self.db.sql(q_stmt)
   # }}}
 
+  # getRandFact {{{
+  def getRandFact(self):
+    facts = ['The rain in Spain falls mainly on the plain.',
+        'A bird in the hand is worth two in the bush.',
+        'A penny saved is a penny earned.']
+    return facts[random.randrange(len(facts))]
+  # }}}
+
+  # getRandQuestion {{{
+  def getRandQuestion(self, game):
+    # Can't do this if not connected
+    if not self.db.connected:
+      print "Error: can't reinitialize the questions without connecting first."
+      sys.exit(1)
+    rows = self.db.sqlReturn('select g_id from games where name = "%s";' %
+        (game))
+    g_id = rows[0][0]
+
+    rows = self.db.sqlReturn('select min(q_id), max(q_id) from questions where g_id = %d;' % (g_id))
+    min_q_id = rows[0][0]
+    max_q_id = rows[0][1]
+    q_id = random.randint(min_q_id, max_q_id)
+
+    rows = self.db.sqlReturn('select question from questions where q_id = %d;' % (q_id))
+    q = Question()
+    q.string = rows[0][0]
+
+    rows = self.db.sqlReturn('select answer, correct from answers where q_id = %s;' % (q_id))
+    for row in rows:
+      a = Answer()
+      a.string = row[0]
+      a.correct = (row[1] == 1)
+      q.answers.append(a)
+
+    random.shuffle(q.answers)
+    return q
+  # }}}
+
   # getQuestions {{{
   def getQuestions(self, game):
     # Can't do this if not connected
@@ -241,5 +282,79 @@ class Session:
       questions[q_id_map[row[0]]].answers.append(a)
 
     return questions
+  # }}}
+
+  # getGames {{{
+  def getGames(self):
+    if not self.db.connected:
+      print "Error: can't get list of games while not connected."
+      sys.exit(1)
+
+    rows = self.db.sqlReturn('select name, filename from games')
+    games = []
+    for row in rows:
+      g = Game()
+      g.string = row[0]
+      g.filename = row[1]
+      games.append(g)
+
+    return games
+  # }}}
+
+  # doSubs {{{
+  def doSubs(self, line, title):
+    retval = line
+
+    retval = re.sub(r'\n|\r', '', retval)
+    while True:
+      if re.search(r'\{TITLE\}', retval):
+        titstr = self.title_prefix['label']
+        if title != '':
+          titstr = titstr + self.title_prefix['separator'] + title
+        retval = re.sub(r'\{TITLE\}', titstr, retval)
+      elif re.search(r'\{TOPLINKS\}', retval):
+        str = '<span class="top_item">one</span><span class="top_item">two</span>'
+        retval = re.sub(r'\{TOPLINKS\}', str, retval)
+      elif re.search(r'\{SIDELINKS\}', retval):
+        # str = '<span class="left_fact">"%s"</span><br />\n' % (self.getRandFact())
+        str = ''
+
+        games = self.getGames()
+        for g in games:
+          str += '<div class="left_item"><a class="item" href="%s">%s</a></div>\n' % (g.filename, g.string)
+        retval = re.sub(r'\{SIDELINKS\}', str, retval)
+      else:
+        break
+
+    return retval
+  # }}}
+
+  # printHeader {{{
+  def printHeader(self, title='', filename='template'):
+    try:
+      template = open(filename, 'r')
+    except:
+      print 'Unable to open template file %s, exiting.' % (filename)
+      sys.exit(1)
+
+    print 'Content-Type: text/html'
+    print
+
+    for line in template:
+      if re.search(r'\{TEXT\}', line): break
+      else: print self.doSubs(line, title)
+  # }}}
+
+  # printFooter {{{
+  def printFooter(self, title='', filename='template'):
+    template = open(filename, 'r')
+    ready = False
+
+    for line in template:
+      if re.search(r'\{TEXT\}', line):
+        ready = True
+      else:
+        if ready:
+          print self.doSubs(line, title)
   # }}}
 # }}}
