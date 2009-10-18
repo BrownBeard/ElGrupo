@@ -1,0 +1,4 @@
+user grupo
+passwd QsLgrup-o
+db grupo
+host localhost

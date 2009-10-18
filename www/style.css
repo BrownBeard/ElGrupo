@@ -29,37 +29,28 @@ div.leftbar {
   left:0px;
   background-color:#000000;
   color:#ffffff;
-  width=180px;
   border=0px;
   margin=0px;
+  width=180px;
   text-align:right;
   background-image:url('images/leftbg.png');
   background-repeat:repeat-y;
   white-space:normal;
 }
 
-/*
-div.left_fact {
-  width=180px;
-  height=180px;
-  padding:5px 10px;
-  margin=0;
-  border=0;
-  font-style:italic;
+p.left_fact {
+  position:relative;
+  left:10px;
   text-align:center;
+  font-style:italic;
+  width:160px;
 }
-*/
 
-div.left_item {
-  padding:5px 10px;
-  width=180px;
-  white-space:normal;
-  /*
-  position:inherit;
-  border=0px;
-  margin=0px;
-  */
-  background:inherit;
+p.left_text {
+  position:relative;
+  text-align:right;
+  right:10px;
+  width:180px;
 }
 
 div.content {
@@ -75,7 +66,6 @@ a.item {
   text-decoration:underline;
 }
 
-h1 {
+h1.question {
   text-align:center;
-  color:green;
 }

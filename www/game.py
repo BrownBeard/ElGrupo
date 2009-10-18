@@ -14,7 +14,7 @@ def printqs(game):
   qs = gs.getQuestions(game)
 
   # Print info
-  gs.printHeader()
+  gs.printHeader(game)
   print '<h1>Questions:</h1>\n<hr />\n<ul>'
   for q in qs:
     print '<li>', q.string, '</li>'
@@ -40,7 +40,8 @@ def printq(game):
 
   # Print info
   gs.printHeader()
-  print '<h1>%s</h1>\n<hr />' % (q.string)
+  print '<h1 class="question">%s</h1><br />\n' % (q.string)
+  print '<img src="images/question_bar.png" style="margin-left:auto; margin-right:auto" /><br>'
   print '<ul>'
   for a in q.answers:
     if a.correct: print '<li>%s *</li>' % (a.string)

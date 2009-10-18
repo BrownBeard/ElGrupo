@@ -210,11 +210,28 @@ class Session:
   # }}}
 
   # getRandFact {{{
-  def getRandFact(self):
-    facts = ['The rain in Spain falls mainly on the plain.',
-        'A bird in the hand is worth two in the bush.',
-        'A penny saved is a penny earned.']
-    return facts[random.randrange(len(facts))]
+  def getRandFact(self, game):
+    if not self.db.connected:
+      print "Error: can't reinitialize the questions without connecting first."
+      sys.exit(1)
+
+    if game == '':
+      rows = self.db.sqlReturn('select min(f_id), max(f_id) from facts;')
+    else:
+      rows = self.db.sqlReturn('select g_id from games where name = "%s";' %
+          (game))
+      g_id = rows[0][0]
+
+      rows = self.db.sqlReturn('select min(f_id), max(f_id) from facts where g_id = %d;' % (g_id))
+
+    min_f_id = rows[0][0]
+    max_f_id = rows[0][1]
+    f_id = random.randint(min_f_id, max_f_id)
+
+    rows = self.db.sqlReturn('select fact from facts where f_id = %d;' % (f_id))
+    fact = rows[0][0]
+
+    return fact
   # }}}
 
   # getRandQuestion {{{
@@ -316,12 +333,11 @@ class Session:
         str = '<span class="top_item">one</span><span class="top_item">two</span>'
         retval = re.sub(r'\{TOPLINKS\}', str, retval)
       elif re.search(r'\{SIDELINKS\}', retval):
-        # str = '<span class="left_fact">"%s"</span><br />\n' % (self.getRandFact())
-        str = ''
+        str = '<p class="left_fact">"%s"</p><hr style="color:#47bd44"/>\n' % (self.getRandFact(title))
 
         games = self.getGames()
         for g in games:
-          str += '<div class="left_item"><a class="item" href="%s">%s</a></div>\n' % (g.filename, g.string)
+          str += '<p class="left_text"><a class="item" href="%s">%s</a></p>\n' % (g.filename, g.string)
         retval = re.sub(r'\{SIDELINKS\}', str, retval)
       else:
         break

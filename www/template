@@ -9,7 +9,7 @@
       <a href="/ElGrupo/index.py"><img src="images/logo.png" border=0 width="180px" height="100px" /></a><img src="images/topspacer.png" height="100px" width="20px" />{TOPLINKS}<img src="images/topender.png" height="100px" width="80px" />
     </div>
     <div class="leftbar">
-      <img src="images/leftspacer.png" width="180px" height="20px" />
+      <img src="images/leftspacer.png" width="180px" height="20px" /><br />
       {SIDELINKS}
       <img src="images/leftender.png" width="180px" height="80px" />
     </div>
