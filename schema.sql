@@ -1,14 +1,10 @@
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
 DROP TABLE IF EXISTS `answers`;
 CREATE TABLE `answers` (
   `a_id` int(10) unsigned NOT NULL auto_increment,
   `q_id` int(10) unsigned NOT NULL,
   `answer` varchar(64) NOT NULL,
   `correct` tinyint(1) NOT NULL,
-  PRIMARY KEY  (`a_id`),
-  KEY `q_id` (`q_id`),
-  KEY `q_id_2` (`q_id`)
+  PRIMARY KEY  (`a_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `facts`;
