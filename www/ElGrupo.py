@@ -1,9 +1,12 @@
 #!/usr/bin/python
+# 49d9cfc5
 
-import sys
+import sys, os
 import MySQLdb
 import re
 import random
+import cgitb; cgitb.enable()
+import Cookie
 
 # DB {{{
 # Holds database related stuff
@@ -81,6 +84,7 @@ class Session:
   def __init__(self, conf_fn=None):
     self.db = DB()
     self.title_prefix = {'label': 'El Grupo', 'separator': ': '}
+    self.game_name = None
 
     # Load config file if provided
     if not conf_fn is None:
@@ -210,16 +214,15 @@ class Session:
   # }}}
 
   # getRandFact {{{
-  def getRandFact(self, game):
+  def getRandFact(self):
     if not self.db.connected:
       print "Error: can't reinitialize the questions without connecting first."
       sys.exit(1)
 
-    if game == '':
+    if self.game_name is None:
       rows = self.db.sqlReturn('select min(f_id), max(f_id) from facts;')
     else:
-      rows = self.db.sqlReturn('select g_id from games where name = "%s";' %
-          (game))
+      rows = self.db.sqlReturn('select g_id from games where name = "%s";' % (self.game_name))
       g_id = rows[0][0]
 
       rows = self.db.sqlReturn('select min(f_id), max(f_id) from facts where g_id = %d;' % (g_id))
@@ -243,6 +246,7 @@ class Session:
     rows = self.db.sqlReturn('select g_id from games where name = "%s";' %
         (game))
     g_id = rows[0][0]
+    self.g_id = g_id
 
     rows = self.db.sqlReturn('select min(q_id), max(q_id) from questions where g_id = %d;' % (g_id))
     min_q_id = rows[0][0]
@@ -251,6 +255,7 @@ class Session:
 
     rows = self.db.sqlReturn('select question from questions where q_id = %d;' % (q_id))
     q = Question()
+    q.q_id = q_id
     q.string = rows[0][0]
 
     rows = self.db.sqlReturn('select answer, correct from answers where q_id = %s;' % (q_id))
@@ -330,14 +335,18 @@ class Session:
           titstr = titstr + self.title_prefix['separator'] + title
         retval = re.sub(r'\{TITLE\}', titstr, retval)
       elif re.search(r'\{TOPLINKS\}', retval):
-        str = '<span class="top_item">one</span><span class="top_item">two</span>'
+        str = ''
+        if self.name:
+          str += '<span class="top_item"><a class="item" href="signout.py">Sign out</a></span>' 
+          str += '<span class="top_item"><a class="item" href="account.py">Account:</a> %s</span>' % self.name
         retval = re.sub(r'\{TOPLINKS\}', str, retval)
       elif re.search(r'\{SIDELINKS\}', retval):
-        str = '<p class="left_fact">"%s"</p><hr style="color:#47bd44"/>\n' % (self.getRandFact(title))
-
+        str = ''
         games = self.getGames()
         for g in games:
           str += '<p class="left_text"><a class="item" href="%s">%s</a></p>\n' % (g.filename, g.string)
+        str += '<hr style="color:#47bd44"/><p class="left_fact">"%s"</p>\n' % (self.getRandFact())
+
         retval = re.sub(r'\{SIDELINKS\}', str, retval)
       else:
         break
@@ -346,7 +355,7 @@ class Session:
   # }}}
 
   # printHeader {{{
-  def printHeader(self, title='', filename='template'):
+  def printHeader(self, title='', filename='template', cookie=None):
     try:
       template = open(filename, 'r')
     except:
@@ -354,6 +363,7 @@ class Session:
       sys.exit(1)
 
     print 'Content-Type: text/html'
+    if cookie: print cookie
     print
 
     for line in template:
@@ -372,5 +382,54 @@ class Session:
       else:
         if ready:
           print self.doSubs(line, title)
+  # }}}
+
+  # accountCheck {{{
+  def accountCheck(self, force_cookie=None):
+    self.name = None
+    self.u_id = self.loggedInAs()
+
+    if force_cookie or not self.u_id:
+      self.name = None
+      self.printHeader('Log in', cookie=force_cookie)
+      print '<h1 class="login">Please log in, or <a href="create.py">create an account</a>.</h1>'
+      print '<form action="confirm.py" method="post">'
+      print '<table>'
+      print '<tr>'
+      print '<td><label for="nameid">Name</label>'
+      print '<td><input type="text" name="name" id="nameid">'
+      print '<tr>'
+      print '<td><label for="passid">Password</label>'
+      print '<td><input type="password" name="passwd" id="passid">'
+      print '</table>'
+      print '<input type="submit" value="Submit" />'
+      print '</form>'
+      self.printFooter('Log in')
+      sys.exit(0)
+
+    rows = self.db.sqlReturn('select name from users where u_id = %d;' % \
+        self.u_id)
+    self.name = rows[0][0]
+  # }}}
+
+  # loggedInAs {{{
+  def loggedInAs(self):
+    cookie_string = os.environ.get('HTTP_COOKIE')
+
+    if not cookie_string: return None
+
+    cookie = Cookie.SimpleCookie()
+    cookie.load(cookie_string)
+    try:
+      secret = cookie['secret'].value
+    except:
+      return None
+
+    rows = self.db.sqlReturn('select u_id from sessions where secret = %s;' % \
+        (MySQLdb.string_literal(secret)))
+    if len(rows) != 1:
+      return None
+
+    return rows[0][0]
   # }}}
 # }}}

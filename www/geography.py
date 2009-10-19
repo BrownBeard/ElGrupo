@@ -5,4 +5,4 @@ import sys
 import ElGrupo
 import game
 
-game.printq('Geography')
+game.printq('Geography', 'geography.py')

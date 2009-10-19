@@ -69,3 +69,21 @@ a.item {
 h1.question {
   text-align:center;
 }
+
+h1.login {
+  text-align:left;
+  font-size:large;
+  font-weight:bold;
+}
+
+div.question_bar {
+  background-image:url('images/q_bar_bg.png');
+  background-repeat:repeat;
+  height:10px;
+}
+
+.question_form {
+  position:relative;
+  left:40px;
+  font-weight:bold;
+}

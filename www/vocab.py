@@ -5,4 +5,4 @@ import sys
 import ElGrupo
 import game
 
-game.printq('Vocabulary')
+game.printq('Vocabulary', 'vocab.py')
