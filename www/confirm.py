@@ -28,6 +28,7 @@ def main():
   if len(rows) != 1:
     gs.printHeader('Login failed.')
     print '<h1 class="login">Login failed.</h1>'
+    gs.printFooter('Login failed.')
     sys.exit(0)
 
   u_id = rows[0][0]
@@ -37,12 +38,11 @@ def main():
       (secret, u_id))
   c = Cookie.SimpleCookie()
   c['secret'] = secret
-  gs.printHeader('Thanks', cookie=c)
 
+  gs.printHeader('Thanks', cookie=c)
   print '<h1 class="login">Login succeeded.</h1>'
   gs.printFooter('Thanks')
+
   gs.db.disconnect()
-  try: server.quit()
-  except: pass
 
 main()

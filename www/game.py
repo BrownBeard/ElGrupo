@@ -20,10 +20,10 @@ def printq(game, filename):
 
   # Make sure table has a row for me
   rows = gs.db.sqlReturn( \
-  'select n_correct, n_total from standard_scores where u_id = %d and g_id = %d;' \
+  'select n_correct, n_total from normal_scores where u_id = %d and g_id = %d;' \
   % (gs.u_id, gs.g_id))
   if len(rows) == 0:
-    gs.db.sql('insert into standard_scores (u_id, g_id, n_correct, n_total) values (%d,%d,%d,%d);' % (gs.u_id, gs.g_id, 0, 0))
+    gs.db.sql('insert into normal_scores (u_id, g_id, n_correct, n_total) values (%d,%d,%d,%d);' % (gs.u_id, gs.g_id, 0, 0))
     n_correct = 0
     n_total = 0
   else:
@@ -45,23 +45,23 @@ def printq(game, filename):
       if rows[0][0] == 1:
         correct = True
         gs.db.sql('''\
-update standard_scores set n_correct=n_correct+1, n_total=n_total+1 where u_id=%d and g_id=%d;'''
+update normal_scores set n_correct=n_correct+1, n_total=n_total+1 where u_id=%d and g_id=%d;'''
         % (gs.u_id, gs.g_id))
       else:
         correct = False
         gs.db.sql('''\
-update standard_scores set n_total=n_total+1 where u_id=%d and g_id=%d;'''
+update normal_scores set n_total=n_total+1 where u_id=%d and g_id=%d;'''
         % (gs.u_id, gs.g_id))
 
   rows = gs.db.sqlReturn( \
-  'select n_correct, n_total from standard_scores where u_id = %d and g_id = %d;' \
+  'select n_correct, n_total from normal_scores where u_id = %d and g_id = %d;' \
   % (gs.u_id, gs.g_id))
   n_correct = rows[0][0]
   n_total = rows[0][1]
 
   # Print info
   gs.printHeader(game)
-  print '<h1 class="question">%s</h1><br />\n' % (q.string)
+  print '<h1 class="question">%s</h1><br />' % (q.string)
   print '<div class="question_bar">&nbsp;</div><br />'
   print '<div class="question_form">'
   print '<table width="520px">'
@@ -69,7 +69,7 @@ update standard_scores set n_total=n_total+1 where u_id=%d and g_id=%d;'''
   spot = int((len(q.answers) + 1) / 2)
   i = 0
   for a in q.answers:
-    print '<tr>\n'
+    print '<tr>'
     print '<td>'
     print '<input type="radio" name="answer" value="%d-%s">%s</input><br />' \
         % (q.q_id, a.string, a.string)
@@ -80,10 +80,10 @@ update standard_scores set n_total=n_total+1 where u_id=%d and g_id=%d;'''
     elif i == spot and not correct is None:
       if correct: print 'Correct!'
       else: print 'Incorrect!'
-    print '</td>\n'
-    print '</tr>\n'
+    print '</td>'
+    print '</tr>'
     i += 1
-  print '<tr><td><input type="submit" value="Choose" /></td><td></td></tr>\n'
+  print '<tr><td><input type="submit" value="Choose" /></td><td></td></tr>'
   print '</form></table></div><br />'
   print '<div class="question_bar">&nbsp;</div><br />'
 
