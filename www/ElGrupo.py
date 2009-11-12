@@ -384,12 +384,28 @@ class Session:
           print self.doSubs(line, title)
   # }}}
 
+  # activityCheck {{{
+  def activityCheck(self):
+    if not self.s_id: raise Error('activityCheck called without s_id set')
+
+    rows = self.db.sqlReturn(
+      ('select u_id from sessions where s_id=%d and activity + ' +
+      'interval 30 minute > now();') % self.s_id)
+
+    if len(rows) != 1:
+      self.db.sql('delete from sessions where s_id=%d;' % self.s_id)
+      return False
+    else:
+      self.db.sql('update sessions set activity=now() where s_id=%d;' % self.s_id)
+      return True
+  # }}}
+
   # accountCheck {{{
   def accountCheck(self, force_cookie=None):
     self.name = None
     self.u_id = self.loggedInAs()
 
-    if force_cookie or not self.u_id:
+    if force_cookie or not self.u_id or not self.activityCheck():
       self.name = None
       self.printHeader('Log in', cookie=force_cookie)
       print '<h1 class="login">Please log in, or <a href="create.py">create an account</a>.</h1>'
@@ -425,11 +441,12 @@ class Session:
     except:
       return None
 
-    rows = self.db.sqlReturn('select u_id from sessions where secret = %s;' % \
+    rows = self.db.sqlReturn('select u_id, s_id from sessions where secret = %s;' % \
         (MySQLdb.string_literal(secret)))
     if len(rows) != 1:
       return None
 
+    self.s_id = rows[0][1]
     return rows[0][0]
   # }}}
 # }}}

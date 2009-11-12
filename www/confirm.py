@@ -26,8 +26,10 @@ def main():
       'select u_id from users where name = %s and passwd_hash = "%s";' % \
       (MySQLdb.string_literal(name), hashlib.sha256(passwd).hexdigest()))
   if len(rows) != 1:
+    gs.name = None
     gs.printHeader('Login failed.')
     print '<h1 class="login">Login failed.</h1>'
+    print '<p><a href="index.py">Try again</a></p>'
     gs.printFooter('Login failed.')
     sys.exit(0)
 
