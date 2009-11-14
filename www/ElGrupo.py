@@ -344,7 +344,11 @@ class Session:
         str = ''
         games = self.getGames()
         for g in games:
-          str += '<p class="left_text"><a class="item" href="%s">%s</a></p>\n' % (g.filename, g.string)
+          str += '<p class="left_text">%s<br />\n' % g.string
+          for mode in ['n', 's', 'm']:
+            str += '<a class="item" href="%s">%s</a> ' % \
+                (g.filename + '?m=' + mode, mode.upper())
+          str += '</p>\n'
         str += '<hr style="color:#47bd44"/><p class="left_fact">"%s"</p>\n' % (self.getRandFact())
 
         retval = re.sub(r'\{SIDELINKS\}', str, retval)
