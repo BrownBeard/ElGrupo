@@ -32,6 +32,7 @@ def main():
   email = form.getvalue('email')
   new_passwd = form.getvalue('new_passwd')
   new_confirm = form.getvalue('new_confirm')
+  wants_email = form.getvalue('wantmail')
   u_id = gs.loggedInAs()
 
   # Check current passwd
@@ -52,6 +53,11 @@ def main():
                 (MySQLdb.string_literal(hashlib.sha256(new_passwd).hexdigest()),
                   u_id))
     else: fail(gs, 'Passwords do not match.')
+
+  if wants_email:
+    gs.db.sql('update users set wants_email=1 where u_id=%d;' % gs.u_id)
+  else:
+    gs.db.sql('update users set wants_email=0 where u_id=%d;' % gs.u_id)
 
   gs.printHeader('Thanks')
   print '<h1 class="login">Update succeeded.</h1>'

@@ -78,6 +78,20 @@ class Game:
     self.questions = []
 # }}}
 
+# Stat {{{
+class Stat:
+  def __init__(self):
+    self.string = ''
+    self.value = 0
+# }}}
+
+# Person {{{
+class Person:
+  def __init__(self):
+    self.name = ''
+    self.stats = []
+# }}}
+
 # Session {{{
 class Session:
   # __init__ {{{
@@ -125,6 +139,7 @@ class Session:
   # Reinitialize the questions database.  This function is dangerous!!!
   def readQuestions(self, filename):
     # Can't do this if not connected
+    print 'foo'
     if not self.db.connected:
       print "Error: can't reinitialize the questions without connecting first."
       sys.exit(1)
@@ -137,9 +152,9 @@ class Session:
       sys.exit(1)
 
     # Clear the tables
-    self.db.sql('delete from answers;')
-    self.db.sql('delete from questions;')
-    self.db.sql('delete from games;')
+    #self.db.sql('delete from answers;')
+    #self.db.sql('delete from questions;')
+    #self.db.sql('delete from games;')
 
     # Read the info in
     games = []
@@ -195,12 +210,12 @@ class Session:
     a_stmt = 'insert into answers (q_id, answer, correct) values '
     for g in games:
       g_id += 1
-      g_stmt += '("%s", "%s"), ' % (g.string, g.filename)
+      g_stmt += '(%s, %s), ' % (MySQLdb.string_literal(g.string), MySQLdb.string_literal(g.filename))
       for q in g.questions:
         q_id += 1
-        q_stmt += '(%d, "%s"), ' % (g_id, q.string)
+        q_stmt += '(%d, %s), ' % (g_id, MySQLdb.string_literal(q.string))
         for a in q.answers:
-          a_stmt += '(%d, "%s", ' % (q_id, a.string)
+          a_stmt += '(%d, %s, ' % (q_id, MySQLdb.string_literal(a.string))
           if a.correct: a_stmt += 'true), '
           else:         a_stmt += 'false), '
     g_stmt = g_stmt[:-2] + ';'
@@ -208,8 +223,11 @@ class Session:
     a_stmt = a_stmt[:-2] + ';'
 
     # Run them
+    print g_stmt
     self.db.sql(g_stmt)
+    print a_stmt
     self.db.sql(a_stmt)
+    print q_stmt
     self.db.sql(q_stmt)
   # }}}
 
@@ -306,21 +324,51 @@ class Session:
     return questions
   # }}}
 
+  # getPeople {{{
+  def getPeople(self):
+    if not self.db.connected:
+      print "Error: can't get list of people while not connected."
+      sys.exit(1)
+
+    try:
+      if not self.u_id:
+        return []
+    except:
+      return []
+
+    rows = self.db.sqlReturn('select name, p_id from persons where u_id=%d' % self.u_id)
+    people = []
+    for row in rows:
+      p = Person()
+      p.string = row[0]
+      p.p_id = row[1]
+      people.append(p)
+
+    return people
+  # }}}
+
   # getGames {{{
   def getGames(self):
     if not self.db.connected:
       print "Error: can't get list of games while not connected."
       sys.exit(1)
 
-    rows = self.db.sqlReturn('select name, filename from games')
+    rows = self.db.sqlReturn('select name, filename, g_id from games')
     games = []
     for row in rows:
       g = Game()
       g.string = row[0]
       g.filename = row[1]
+      g.g_id = row[2]
       games.append(g)
 
     return games
+  # }}}
+
+  # getPoints {{{
+  def getPoints(self):
+    rows = self.db.sqlReturn('select points from users where u_id=%d;'%self.u_id)
+    return rows[0][0]
   # }}}
 
   # doSubs {{{
@@ -336,12 +384,22 @@ class Session:
         retval = re.sub(r'\{TITLE\}', titstr, retval)
       elif re.search(r'\{TOPLINKS\}', retval):
         str = ''
+        sp = ['<span class="top_item">', '</span>']
+        str += sp[0] + '<a class="item" href="arcade.py">Arcade</a>' + sp[1]
+        str += sp[0] + '<a class="item" href="people.py">People</a>' + sp[1]
+        str += sp[0] + '&nbsp;' + sp[1]
         if self.name:
-          str += '<span class="top_item"><a class="item" href="signout.py">Sign out</a></span>' 
-          str += '<span class="top_item"><a class="item" href="account.py">Account:</a> %s</span>' % self.name
+          str += sp[0] + '<a class="item" href="signout.py">Sign out</a>' + sp[1]
+          str += sp[0] + '<a class="item" href="account.py">Account:</a> %s' % self.name
+          str += ' (%d pts)</span>' % self.getPoints()
+        str += sp[0] + '&nbsp;' + sp[1]
+        str += sp[0]
+        str += '<a class="item" href="http://wiki.github.com/BrownBeard/ElGrupo">'
+        str += 'Help</a>' + sp[1]
         retval = re.sub(r'\{TOPLINKS\}', str, retval)
       elif re.search(r'\{SIDELINKS\}', retval):
         str = ''
+        # Add games
         games = self.getGames()
         for g in games:
           str += '<p class="left_text">%s<br />\n' % g.string
@@ -349,6 +407,16 @@ class Session:
             str += '<a class="item" href="%s">%s</a> ' % \
                 (g.filename + '?m=' + mode, mode.upper())
           str += '</p>\n'
+        # Add people links
+        str += '<p class="left_text">'
+        people = self.getPeople()
+        for p in people:
+          str += '<a class="item" href="person.py?p=%s">%s</a><br />' % \
+              (p.string, p.string)
+        str += '</p>'
+        str += '<p class="left_text">'
+        str += '<a class="item" href="create_person.py">Create Person</a>'
+        str += '</p>\n'
         str += '<hr style="color:#47bd44"/><p class="left_fact">"%s"</p>\n' % (self.getRandFact())
 
         retval = re.sub(r'\{SIDELINKS\}', str, retval)

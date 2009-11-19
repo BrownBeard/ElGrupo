@@ -15,14 +15,15 @@ def main():
 
   gs.printHeader('Create an Account')
   print '<h1 class="login">Enter your information.  All fields are requried.</h1>'
+  print '<p>Your password will be emailed to you, so ensure that you will get it.</p>'
   print '<form action="thanks.py" method="get">'
   print '<table>'
   print '<tr>'
-  print '<td><label for="nameid">Name</label></td>'
+  print '<td align="right"><label for="nameid">Name</label></td>'
   print '<td><input type="text" name="name" id="nameid"></td>'
   print '</tr>'
   print '<tr>'
-  print '<td><label for="emailid">Email address</label></td>'
+  print '<td align="right"><label for="emailid">Email address</label></td>'
   print '<td><input type="text" name="email" id="emailid"></td>'
   print '</tr>'
   print '</table>'

@@ -39,7 +39,10 @@ def main():
   server.starttls()
   server.ehlo()
   server.login(smtpuser, smtppass)
-  server.sendmail(FROM, TO, message)
+  try:
+    server.sendmail(FROM, TO, message)
+  except:
+    pass
 
   gs.db.sql('insert into users (name, passwd_hash, email) values ("%s","%s","%s");' \
       % (name, passwd_hash, email))

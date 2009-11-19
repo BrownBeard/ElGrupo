@@ -6,7 +6,7 @@ import ElGrupo
 
 def main():
   # Set filenames
-  conffilename = 'conf.txt'
+  conffilename = '/home/adam/ElGrupo/conf.txt'
   if len(sys.argv) > 1:
     conffilename = sys.argv[1]
 

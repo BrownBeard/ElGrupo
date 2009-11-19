@@ -40,6 +40,7 @@ def normal(gs, form, filename):
         gs.db.sql('''\
 update normal_scores set n_correct=n_correct+1, n_total=n_total+1 where u_id=%d and g_id=%d;'''
         % (gs.u_id, gs.g_id))
+        gs.db.sql('update users set points=points+10 where u_id=%d;'%gs.u_id)
       else:
         correct = False
         gs.db.sql('''\
@@ -116,6 +117,8 @@ def sprint(gs, form, filename):
         print '</form>'
         gs.printFooter(gs.game_name + '-Sprint  (New Game)')
       else:
+        gs.db.sql('update users set points=points+%d where u_id=%d'\
+            % (round((10*rows[0][0])**1.1), gs.u_id))
         # Print summary
         gs.printHeader(gs.game_name + '-Sprint  (Review)')
         print '<h1 class="login">Good job.  Your score is %d/%d.</h1>' % \
@@ -230,6 +233,8 @@ def marathon(gs, form, filename):
         print '</form>'
         gs.printFooter(gs.game_name + '-Marathon  (New Game)')
       else:
+        gs.db.sql('update users set points=points+%d where u_id=%d'\
+            % (round((10*rows[0][0])**1.2), gs.u_id))
         # Print summary
         gs.printHeader(gs.game_name + '-Marathon  (Review)')
         print '<h1 class="login">Good job.  Your score is %d.</h1>' % \
@@ -265,7 +270,8 @@ def marathon(gs, form, filename):
         if rows[0][0] == 1:
           correct = True
           n_correct += 1
-          t_left = math.ceil(0.85 * t_left)
+          if 2 < t_left <= 6: t_left -= 1
+          elif 6 < t_left: t_left = math.ceil(0.85 * t_left)
           gs.db.sql(
           'update marathon_scores set n_correct=n_correct+1, t_prev=now(), '
           't_left=%d where ms_id=%d;' % (t_left, ms_id)
