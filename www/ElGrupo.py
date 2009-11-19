@@ -396,6 +396,9 @@ class Session:
         str += sp[0]
         str += '<a class="item" href="http://wiki.github.com/BrownBeard/ElGrupo">'
         str += 'Help</a>' + sp[1]
+        str += sp[0]
+        str += '<a class="item" href="mailto:elgruporice@gmail.com">'
+        str += 'Contact</a>' + sp[1]
         retval = re.sub(r'\{TOPLINKS\}', str, retval)
       elif re.search(r'\{SIDELINKS\}', retval):
         str = ''
@@ -481,6 +484,8 @@ class Session:
       self.name = None
       self.printHeader('Log in', cookie=force_cookie)
       print '<h1 class="login">Please log in, or <a href="create.py">create an account</a>.</h1>'
+      print '<p>If you forgot your password, <a href="mailto:elgruporice@gmail.com">'
+      print 'email us</a> and we will reset it.</p>'
       print '<form action="confirm.py" method="post">'
       print '<table>'
       print '<tr>'

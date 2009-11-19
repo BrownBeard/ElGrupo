@@ -31,8 +31,9 @@ def main():
   print '<tr>'
   print '<td>To be donated tonight:</td><td align="right">%d grains</td>' % this
   print '</tr>'
+  print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'
   print '<tr>'
-  print '<td>Points:</td><td align="right">%d grains</td>' % points
+  print '<td>Points:</td><td align="right">%d points</td>' % points
   print '</tr>'
   print '</table>'
 

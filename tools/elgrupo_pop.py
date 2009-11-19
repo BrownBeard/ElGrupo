@@ -45,7 +45,7 @@ def calc_donation():
 def empty_donations():
 	#Database = ElGrupo.DB()	
 	#Database.connect()		
-	Sess = ElGrupo.Session('../conf.txt')
+	Sess = ElGrupo.Session('/home/adam/ElGrupo/conf.txt')
 	Database = Sess.db
 	Database.connect()	
 	people = Database.sqlReturn('select u_id from users;')		#Use for loop-range
