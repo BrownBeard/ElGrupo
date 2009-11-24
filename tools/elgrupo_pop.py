@@ -27,6 +27,7 @@ def calc_donation():
 		for n in range(len(num_persons)):
 		   #num_stats = Database.sqlReturn('select * from stats where p_id = ' + str(i))			#number of stats each person possesses
 		   total_s = Database.sqlReturn('SELECT SUM(value), COUNT(value) FROM stats WHERE p_id=' + str(num_persons[n][0]))		#calculate total sm
+                   if total_s[0][1] == 0: continue
 		   health = total_s[0][0]/float(total_s[0][1])					#health for ONE person
 		   health_total *= health									#health for ALL persons
 		
@@ -36,7 +37,7 @@ def calc_donation():
 		#Database.sql('update users set total_donation = (total_donation + ' + str(donation) + ') where u_id=' + str(i))
 		
 	
-	Database.sql('update stats set value=value-(20*rand());')
+	Database.sql('update stats set value=value-(10*rand());')
 	Database.sql('update stats set value=0 where value<0;')
 		
 	#End calculation of donations	
